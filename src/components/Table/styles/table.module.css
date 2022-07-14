@@ -1,0 +1,41 @@
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: small;
+  max-width: 1200px;
+}
+
+td,
+th {
+  text-align: left;
+}
+
+th:hover {
+  cursor: pointer;
+}
+
+table input {
+  cursor: pointer;
+}
+
+thead {
+  border-bottom: 1px solid #e1e1e1;
+}
+
+thead th {
+  padding: 1rem 2rem;
+  white-space: nowrap;
+}
+
+tbody tr td {
+  padding: 1rem 2rem;
+}
+
+tbody tr {
+  border-bottom: 1px solid #ebebeb;
+}
+
+tbody tr:last-child {
+  border: 0;
+}
