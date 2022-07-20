@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./styles/table.module.css";
+import "../../App.css";
 import TableBody from "./TableBody";
 import TableHeader from "./TableHeader";
 
@@ -51,25 +52,27 @@ export default function Table({ columns, rows }) {
   }, [sortableFields]);
 
   return (
-    <table>
-      <thead>
-        <TableHeader
-          columns={columns}
-          rows={tableData}
-          sortableFields={sortableFields}
-          setSortableFields={setSortableFields}
-          selectAll={selectAll}
-          selected={selected}
-        />
-      </thead>
-      <tbody>
-        <TableBody
-          columns={columns}
-          rows={tableData}
-          selectOne={selectOne}
-          selected={selected}
-        />
-      </tbody>
-    </table>
+    <div className="card" style={{ overflow: "scroll" }}>
+      <table>
+        <thead>
+          <TableHeader
+            columns={columns}
+            rows={tableData}
+            sortableFields={sortableFields}
+            setSortableFields={setSortableFields}
+            selectAll={selectAll}
+            selected={selected}
+          />
+        </thead>
+        <tbody>
+          <TableBody
+            columns={columns}
+            rows={tableData}
+            selectOne={selectOne}
+            selected={selected}
+          />
+        </tbody>
+      </table>
+    </div>
   );
 }

@@ -1,7 +1,6 @@
 table {
   border-collapse: collapse;
   width: 100%;
-  font-size: small;
   /* max-width: 1200px; */
 }
 
@@ -37,4 +36,19 @@ tbody tr {
 
 tbody tr:last-child {
   border: 0;
+}
+
+.collapse {
+  background-color: #f9fdff;
+  border-bottom: 1px dashed #e1e1e1;
+  font-size: 0.875rem;
+  display: none;
+}
+
+.collapse__open {
+  display: table-row;
+}
+
+.collapse--last {
+  border-bottom: 1px solid #ebebeb;
 }
