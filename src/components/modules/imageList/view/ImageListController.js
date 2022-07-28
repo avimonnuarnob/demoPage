@@ -38,7 +38,7 @@ const getChips = (filters) => {
       ...chips,
       {
         key: "position_issues",
-        title: "Position_issues",
+        title: "Position issues",
         value: filters.position_issues,
       },
     ];

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Breadcrumb from "../../../Breadcrumb/Breadcrumb";
 import Chips from "../../../Chips/Chips";
 import Modal from "../../../Modal/Modal";
@@ -8,6 +8,8 @@ import "../../../../App.css";
 import Table from "../../../Table/Table";
 import useImageList from "./ImageListController";
 import ImageListFilter from "./ImageListFilter";
+import PreviewModal from "../../../PreviewModal/PreviewModal";
+import ImagePreview from "./ImagePreview";
 
 const StarIcon = ({ filled }) => (
   <svg
@@ -210,295 +212,304 @@ const DownSvg = () => (
 //   },
 // ];
 
-const columns = {
-  selectable: true,
-  expandable: true,
-  data: [
-    {
-      field: "accession_number",
-      title: "Accession number",
-      sortable: true,
-      format: (value, expanding = false, onClickHandler) => (
-        <span
-          onClick={onClickHandler}
-          style={{
-            color: "rgba(50, 121, 227, 1)",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            gap: "63.83px",
-          }}
-        >
-          {value}
-          {expanding ? <UpSvg /> : <DownSvg />}
-        </span>
-      ),
-    },
-    {
-      field: "date",
-      title: "Date",
-      sortable: true,
-    },
-    {
-      field: "quality",
-      title: "Quality",
-      sortable: true,
-    },
-    {
-      field: "issues",
-      title: "Issues",
-      align: "center",
-      sortable: true,
-    },
-    {
-      field: "flagged",
-      title: "Flagged",
-      sortable: true,
-      align: "center",
-      format: (value) => (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {value === true ? <StarIcon filled /> : <StarIcon />}
-        </div>
-      ),
-    },
-  ],
-  subData: [
-    {
-      field: "image",
-      title: "Image",
-      sortable: true,
-      format: (value) => (
-        <span
-          style={{
-            color: "rgba(50, 121, 227, 1)",
-            cursor: "pointer",
-            paddingLeft: "10px",
-          }}
-        >
-          {value}
-        </span>
-      ),
-    },
-    {
-      field: "date",
-      title: "Date",
-      sortable: true,
-    },
-    {
-      field: "quality",
-      title: "Quality",
-      sortable: true,
-    },
-    {
-      field: "issues",
-      title: "Issues",
-      align: "center",
-      sortable: true,
-    },
-    {
-      field: "flagged",
-      title: "Flagged",
-      sortable: true,
-      align: "center",
-      format: (value) => (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {value === true ? <StarIcon filled /> : <StarIcon />}
-        </div>
-      ),
-    },
-  ],
-};
-const rows = [
-  {
-    id: 1,
-    technologist: "Centro comercial Moctezuma",
-    image: "Image_1",
-    accession_number: "BWC5174901DSA",
-    date: "03.05.2022",
-    view: 211,
-    quality: "Perfect",
-    bad: 111,
-    issues: "0",
-    flagged: true,
-    select: "hello",
-
-    subData: [
-      {
-        id: 11,
-        technologist: "Centro comercial Moctezuma",
-        image: "Image_1",
-        accession_number: "BWC5174901DSA",
-        view: 211,
-        quality: "Perfect",
-        bad: 111,
-        issues: "1",
-        flagged: true,
-        select: "hello",
-      },
-      {
-        id: 12,
-        technologist: "Centro comercial Moctezuma",
-        image: "Image_1",
-        accession_number: "BWC5174901DSA",
-        view: 211,
-        quality: "Perfect",
-        bad: 111,
-        issues: "0",
-        flagged: true,
-        select: "hello",
-      },
-      {
-        id: 13,
-        technologist: "Centro comercial Moctezuma",
-        image: "Image_1",
-        accession_number: "BWC5174901DSA",
-        view: 211,
-        quality: "Perfect",
-        bad: 111,
-        issues: "0",
-        flagged: true,
-        select: "hello",
-      },
-    ],
-  },
-  {
-    id: 2,
-    technologist: "Ame comercial Moctezuma",
-    image: "Image_2",
-    accession_number: "BWC5174901DSA",
-    date: "03.05.2022",
-    view: 511,
-    quality: "Perfect",
-    bad: 11,
-    issues: "0",
-    flagged: false,
-    subData: [
-      {
-        id: 11,
-        technologist: "Centro comercial Moctezuma",
-        image: "Image_2",
-        accession_number: "BWC5174901DSA",
-        view: 211,
-        quality: "Perfect",
-        bad: 111,
-        issues: "1",
-        flagged: true,
-        select: "hello",
-      },
-      {
-        id: 12,
-        technologist: "Centro comercial Moctezuma",
-        image: "Image_3",
-        accession_number: "BWC5174901DSA",
-        view: 211,
-        quality: "Perfect",
-        bad: 111,
-        issues: "0",
-        flagged: true,
-        select: "hello",
-      },
-      {
-        id: 13,
-        technologist: "Centro comercial Moctezuma",
-        image: "Image_4",
-        accession_number: "BWC5174901DSA",
-        view: 211,
-        quality: "Perfect",
-        bad: 111,
-        issues: "0",
-        flagged: true,
-        select: "hello",
-      },
-    ],
-  },
-  {
-    id: 3,
-    technologist: "asd ercial Moctezuma",
-    image: "Image_3",
-    accession_number: "BWC5174901DSA",
-    date: "03.05.2022",
-    view: 311,
-    quality: "Perfect",
-    bad: 511,
-    issues: "1",
-    flagged: false,
-  },
-  {
-    id: 4,
-    technologist: "MM comercial Moctezuma",
-    image: "Image_4",
-    accession_number: "BWC5174901DSA",
-    date: "03.05.2022",
-    view: 311,
-    quality: "Perfect",
-    bad: 511,
-    issues: "1",
-    flagged: true,
-  },
-  {
-    id: 5,
-    technologist: "SS comercial Moctezuma",
-    image: "Image_5",
-    accession_number: "BWC5174901DSA",
-    date: "03.05.2022",
-    view: 311,
-    quality: "Perfect",
-    bad: 511,
-    issues: "0",
-    flagged: false,
-  },
-  {
-    id: 6,
-    technologist: "Lop comercial Moctezuma",
-    image: "Image_6",
-    accession_number: "BWC5174901DSA",
-    date: "03.05.2022",
-    view: 311,
-    quality: "Perfect",
-    bad: 511,
-    issues: "1",
-    flagged: false,
-  },
-  {
-    id: 7,
-    technologist: "Lop comercial Moctezuma",
-    image: "Image_7",
-    accession_number: "BWC5174901DSA",
-    date: "03.05.2022",
-    view: 311,
-    quality: "Perfect",
-    bad: 511,
-    issues: "1",
-    flagged: false,
-  },
-  {
-    id: 8,
-    technologist: "Lop comercial Moctezuma",
-    image: "Image_8",
-    accession_number: "BWC5174901DSA",
-    date: "03.05.2022",
-    view: 311,
-    quality: "Perfect",
-    bad: 511,
-    issues: "0",
-    flagged: false,
-  },
-];
 const ImageList = () => {
   const { chips, setChips, setFilters } = useImageList();
   const [openModal, setOpenModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const columns = {
+    selectable: true,
+    expandable: true,
+    data: [
+      {
+        field: "accession_number",
+        title: "Accession number",
+        sortable: true,
+
+        format: (value, _, expanding = false, expandingHandler) => (
+          <span
+            onClick={() => {
+              expandingHandler();
+              setIsOpen(true);
+            }}
+            style={{
+              color: "rgba(50, 121, 227, 1)",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: "63.83px",
+            }}
+          >
+            {value}
+            {expanding ? <UpSvg /> : <DownSvg />}
+          </span>
+        ),
+      },
+      {
+        field: "date",
+        title: "Date",
+        sortable: true,
+      },
+      {
+        field: "quality",
+        title: "Quality",
+        sortable: true,
+      },
+      {
+        field: "issues",
+        title: "Issues",
+        align: "center",
+        sortable: true,
+      },
+      {
+        field: "flagged",
+        title: "Flagged",
+        sortable: true,
+        align: "center",
+        format: (value) => (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {value === true ? <StarIcon filled /> : <StarIcon />}
+          </div>
+        ),
+      },
+    ],
+    subData: [
+      {
+        field: "image",
+        title: "Image",
+        sortable: true,
+        format: (value) => (
+          <span
+            style={{
+              color: "rgba(50, 121, 227, 1)",
+              cursor: "pointer",
+              paddingLeft: "10px",
+            }}
+          >
+            {value}
+          </span>
+        ),
+      },
+      {
+        field: "date",
+        title: "Date",
+        sortable: true,
+      },
+      {
+        field: "quality",
+        title: "Quality",
+        sortable: true,
+      },
+      {
+        field: "issues",
+        title: "Issues",
+        align: "center",
+        sortable: true,
+      },
+      {
+        field: "flagged",
+        title: "Flagged",
+        sortable: true,
+        align: "center",
+        format: (value) => (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {value === true ? <StarIcon filled /> : <StarIcon />}
+          </div>
+        ),
+      },
+    ],
+  };
+  const rows = [
+    {
+      id: 1,
+      technologist: "Centro comercial Moctezuma",
+      image: "Image_1",
+      accession_number: "BWC5174901DSA",
+      date: "03.05.2022",
+      view: 211,
+      quality: "Perfect",
+      bad: 111,
+      issues: "0",
+      flagged: true,
+      select: "hello",
+
+      subData: [
+        {
+          id: 11,
+          technologist: "Centro comercial Moctezuma",
+          image: "Image_1",
+          accession_number: "BWC5174901DSA",
+          view: 211,
+          quality: "Perfect",
+          bad: 111,
+          issues: "1",
+          flagged: true,
+          select: "hello",
+        },
+        {
+          id: 12,
+          technologist: "Centro comercial Moctezuma",
+          image: "Image_1",
+          accession_number: "BWC5174901DSA",
+          view: 211,
+          quality: "Perfect",
+          bad: 111,
+          issues: "0",
+          flagged: true,
+          select: "hello",
+        },
+        {
+          id: 13,
+          technologist: "Centro comercial Moctezuma",
+          image: "Image_1",
+          accession_number: "BWC5174901DSA",
+          view: 211,
+          quality: "Perfect",
+          bad: 111,
+          issues: "0",
+          flagged: true,
+          select: "hello",
+        },
+      ],
+    },
+    {
+      id: 2,
+      technologist: "Ame comercial Moctezuma",
+      image: "Image_2",
+      accession_number: "BWC5174901DSA",
+      date: "03.05.2022",
+      view: 511,
+      quality: "Perfect",
+      bad: 11,
+      issues: "0",
+      flagged: false,
+      subData: [
+        {
+          id: 11,
+          technologist: "Centro comercial Moctezuma",
+          image: "Image_2",
+          accession_number: "BWC5174901DSA",
+          view: 211,
+          quality: "Perfect",
+          bad: 111,
+          issues: "1",
+          flagged: true,
+          select: "hello",
+        },
+        {
+          id: 12,
+          technologist: "Centro comercial Moctezuma",
+          image: "Image_3",
+          accession_number: "BWC5174901DSA",
+          view: 211,
+          quality: "Perfect",
+          bad: 111,
+          issues: "0",
+          flagged: true,
+          select: "hello",
+        },
+        {
+          id: 13,
+          technologist: "Centro comercial Moctezuma",
+          image: "Image_4",
+          accession_number: "BWC5174901DSA",
+          view: 211,
+          quality: "Perfect",
+          bad: 111,
+          issues: "0",
+          flagged: true,
+          select: "hello",
+        },
+      ],
+    },
+    {
+      id: 3,
+      technologist: "asd ercial Moctezuma",
+      image: "Image_3",
+      accession_number: "BWC5174901DSA",
+      date: "03.05.2022",
+      view: 311,
+      quality: "Perfect",
+      bad: 511,
+      issues: "1",
+      flagged: false,
+    },
+    {
+      id: 4,
+      technologist: "MM comercial Moctezuma",
+      image: "Image_4",
+      accession_number: "BWC5174901DSA",
+      date: "03.05.2022",
+      view: 311,
+      quality: "Perfect",
+      bad: 511,
+      issues: "1",
+      flagged: true,
+    },
+    {
+      id: 5,
+      technologist: "SS comercial Moctezuma",
+      image: "Image_5",
+      accession_number: "BWC5174901DSA",
+      date: "03.05.2022",
+      view: 311,
+      quality: "Perfect",
+      bad: 511,
+      issues: "0",
+      flagged: false,
+    },
+    {
+      id: 6,
+      technologist: "Lop comercial Moctezuma",
+      image: "Image_6",
+      accession_number: "BWC5174901DSA",
+      date: "03.05.2022",
+      view: 311,
+      quality: "Perfect",
+      bad: 511,
+      issues: "1",
+      flagged: false,
+    },
+    {
+      id: 7,
+      technologist: "Lop comercial Moctezuma",
+      image: "Image_7",
+      accession_number: "BWC5174901DSA",
+      date: "03.05.2022",
+      view: 311,
+      quality: "Perfect",
+      bad: 511,
+      issues: "1",
+      flagged: false,
+    },
+    {
+      id: 8,
+      technologist: "Lop comercial Moctezuma",
+      image: "Image_8",
+      accession_number: "BWC5174901DSA",
+      date: "03.05.2022",
+      view: 311,
+      quality: "Perfect",
+      bad: 511,
+      issues: "0",
+      flagged: false,
+    },
+  ];
+
+  const memoColumns = useMemo(() => ({ ...columns }), []);
+  const memoRows = useMemo(() => [...rows], []);
 
   return (
     <div
@@ -519,11 +530,17 @@ const ImageList = () => {
 
       <Chips chips={chips} setChips={setChips} />
 
-      <Table columns={columns} rows={rows} />
+      <Table columns={memoColumns} rows={memoRows} />
 
       <Modal openModal={openModal} setOpenModal={setOpenModal}>
         <ImageListFilter setFilters={setFilters} setOpenModal={setOpenModal} />
       </Modal>
+
+      {isOpen && (
+        <PreviewModal setIsOpen={setIsOpen}>
+          <ImagePreview />
+        </PreviewModal>
+      )}
     </div>
   );
 };

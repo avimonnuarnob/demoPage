@@ -4,7 +4,7 @@ import styles from "./styles/table.module.css";
 export default function TableDataRow({ columns, rows, selected, selectOne }) {
   const [expanding, setExpanding] = useState([]);
 
-  const onClickHandler = (id) => {
+  const expandingHandler = (id) => {
     if (expanding.includes(id)) {
       const newArr = expanding.filter((el) => el !== id);
       setExpanding(newArr);
@@ -28,9 +28,10 @@ export default function TableDataRow({ columns, rows, selected, selectOne }) {
                         style={{ textAlign: header.align }}
                       >
                         {header.format(
-                          item[header.field],
-                          expanding.includes(item.id),
-                          () => onClickHandler(item?.id)
+                          item[header.field], // item[header.field] is the value of the field
+                          item, // item is the entire row
+                          expanding.includes(item.id), // expanding is the array of expanded rows
+                          () => expandingHandler(item?.id) // expandingHandler is the function to expand/collapse the row
                         )}
                       </td>
                     );
@@ -40,7 +41,7 @@ export default function TableDataRow({ columns, rows, selected, selectOne }) {
                         key={header.field}
                         style={{ textAlign: header.align }}
                       >
-                        {header.format(item[header.field])}
+                        {header.format(item[header.field], item)}
                       </td>
                     );
                   }
