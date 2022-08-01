@@ -1,3 +1,92 @@
-.container {
+dt {
+  color: #858585;
+}
+
+/**/
+.preview__container {
   display: flex;
+  align-items: center;
+}
+
+/**/
+.head {
+  margin-bottom: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.head_btnsContainer {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  color: #5193f5;
+}
+.reportBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+}
+.flagBtn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #dbdbdb;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detailsBlock {
+  display: flex;
+  justify-content: space-between;
+  margin-block: 18px;
+  border-bottom: 1px solid #cdcdcd;
+  padding-bottom: 10px;
+}
+
+/**/
+.issuesBlock {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.issue {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+.issueBtn {
+  color: #5193f5;
+  cursor: pointer;
+}
+.issueDisabled {
+  color: #a7a7a7;
+}
+
+/**/
+.footer {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.switchContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+  overflow: scroll;
+}
+.footerBtn {
+  padding: 0.5rem 0.8125rem;
+  border-radius: 8px;
+  border: 0;
+  background-color: #5193f5;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
 }

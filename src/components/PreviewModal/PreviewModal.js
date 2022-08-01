@@ -19,7 +19,7 @@ const CloseButtonSVG = () => (
   </svg>
 );
 
-const PreviewModal = ({ setIsOpen, renderBody, children }) => {
+const PreviewModal = ({ setIsOpen, children }) => {
   return (
     <>
       <Portal>

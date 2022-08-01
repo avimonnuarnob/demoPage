@@ -215,6 +215,7 @@ const DownSvg = () => (
 const ImageList = () => {
   const { chips, setChips, setFilters } = useImageList();
   const [openModal, setOpenModal] = useState(false);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const columns = {
@@ -225,13 +226,10 @@ const ImageList = () => {
         field: "accession_number",
         title: "Accession number",
         sortable: true,
-
+        //format the output data
         format: (value, _, expanding = false, expandingHandler) => (
           <span
-            onClick={() => {
-              expandingHandler();
-              setIsOpen(true);
-            }}
+            onClick={expandingHandler}
             style={{
               color: "rgba(50, 121, 227, 1)",
               cursor: "pointer",
@@ -291,6 +289,7 @@ const ImageList = () => {
               cursor: "pointer",
               paddingLeft: "10px",
             }}
+            onClick={() => setIsOpen((state) => !state)}
           >
             {value}
           </span>

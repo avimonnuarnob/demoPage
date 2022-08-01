@@ -5,7 +5,7 @@ const Breadcrumb = () => {
   const { state: breadcrumbs } = useBreadcrumb();
   return (
     <nav>
-      <ol className={[styles["breadcrumb"]].join(" ")}>
+      <ol role="list" className={[styles["breadcrumb"]].join(" ")}>
         {breadcrumbs?.map((el) => {
           return (
             <li key={el.title}>
