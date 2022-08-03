@@ -180,3 +180,28 @@ select {
   top: 0;
   z-index: 1;
 }
+
+/* GroupedBtn */
+.groupedBtnContainer {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  padding: 4px;
+  background-color: #fff;
+}
+
+.groupedBtnContainer button {
+  --active-background: transparent;
+
+  background-color: var(--active-background);
+  border: none;
+  appearance: none;
+  padding: 0.375rem 0.6875rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.groupedBtnContainer button.active {
+  background-color: red;
+}

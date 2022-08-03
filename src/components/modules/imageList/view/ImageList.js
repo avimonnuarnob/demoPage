@@ -10,6 +10,7 @@ import useImageList from "./ImageListController";
 import ImageListFilter from "./ImageListFilter";
 import PreviewModal from "../../../PreviewModal/PreviewModal";
 import ImagePreview from "./ImagePreview";
+import GroupButton from "../../../GroupButton/GroupButton";
 
 const StarIcon = ({ filled }) => (
   <svg
@@ -217,6 +218,7 @@ const ImageList = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [activeButton, setActiveButton] = useState("");
 
   const columns = {
     selectable: true,
@@ -396,7 +398,7 @@ const ImageList = () => {
       flagged: false,
       subData: [
         {
-          id: 11,
+          id: 21,
           technologist: "Centro comercial Moctezuma",
           image: "Image_2",
           accession_number: "BWC5174901DSA",
@@ -408,7 +410,7 @@ const ImageList = () => {
           select: "hello",
         },
         {
-          id: 12,
+          id: 22,
           technologist: "Centro comercial Moctezuma",
           image: "Image_3",
           accession_number: "BWC5174901DSA",
@@ -420,7 +422,7 @@ const ImageList = () => {
           select: "hello",
         },
         {
-          id: 13,
+          id: 23,
           technologist: "Centro comercial Moctezuma",
           image: "Image_4",
           accession_number: "BWC5174901DSA",
@@ -510,6 +512,11 @@ const ImageList = () => {
   const memoColumns = useMemo(() => ({ ...columns }), []);
   const memoRows = useMemo(() => [...rows], []);
 
+  const printButtonLabel = (event) => {
+    console.log(event.target.name);
+    //do some stuff here
+  };
+
   return (
     <div
       style={{
@@ -525,9 +532,24 @@ const ImageList = () => {
     >
       <Breadcrumb />
 
-      <Title setOpenModal={setOpenModal} />
+      <Title setOpenModal={setOpenModal} chips={chips} />
 
-      <Chips chips={chips} setChips={setChips} />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "1rem",
+        }}
+      >
+        <div style={{ flex: "1" }}>
+          <Chips chips={chips} setChips={setChips} />
+        </div>
+        <GroupButton
+          buttons={["By images", "By studies"]}
+          buttonOnClickHandler={printButtonLabel}
+        />
+      </div>
 
       <Table columns={memoColumns} rows={memoRows} />
 

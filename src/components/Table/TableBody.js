@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import styles from "./styles/table.module.css";
 
-export default function TableDataRow({ columns, rows, selected, selectOne }) {
+export default function TableDataRow({
+  columns,
+  rows,
+  selected,
+  selectOne,
+  selectBatch,
+}) {
   const [expanding, setExpanding] = useState([]);
 
   const expandingHandler = (id) => {
@@ -56,8 +62,24 @@ export default function TableDataRow({ columns, rows, selected, selectOne }) {
                 <td>
                   <input
                     type="checkbox"
-                    onChange={() => selectOne(item?.id)}
-                    checked={selected.includes(item?.id) ? true : false}
+                    onChange={() => {
+                      if (columns.expandable) {
+                        selectBatch(item?.subData.map((el) => el?.id));
+                      } else {
+                        selectOne(item?.id);
+                      }
+                    }}
+                    checked={
+                      columns?.expandable
+                        ? item?.subData?.every((el) =>
+                            selected.includes(el.id)
+                          ) || selected.includes(item?.id)
+                          ? true
+                          : false
+                        : selected.includes(item?.id)
+                        ? true
+                        : false
+                    }
                   />
                 </td>
               ) : null}
@@ -105,10 +127,7 @@ export default function TableDataRow({ columns, rows, selected, selectOne }) {
                           type="checkbox"
                           onChange={() => selectOne(subItem?.id)}
                           checked={
-                            selected.includes(subItem?.id) ||
-                            selected.includes(item?.id)
-                              ? true
-                              : false
+                            selected.includes(subItem?.id) ? true : false
                           }
                         />
                       </td>

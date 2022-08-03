@@ -43,6 +43,19 @@ export default function Table({ columns, rows }) {
     }
   };
 
+  const selectBatch = (arr) => {
+    console.log(arr);
+    const every = arr.every((el) => selected.includes(el));
+    console.log(every);
+
+    if (every) {
+      const deleted = selected.filter((item) => !arr.includes(item));
+      setSelected(deleted);
+    } else {
+      setSelected([...selected, ...arr]);
+    }
+  };
+
   useEffect(() => {
     sortableFields.forEach((item) => {
       handleSorting(item.name, item.order);
@@ -70,6 +83,7 @@ export default function Table({ columns, rows }) {
             rows={tableData}
             selectOne={selectOne}
             selected={selected}
+            selectBatch={selectBatch}
           />
         </tbody>
       </table>

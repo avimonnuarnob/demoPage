@@ -19,7 +19,6 @@ const ChipsContainer = ({ chips, setChips }) => {
             flexWrap: "wrap",
             alignItems: "center",
             gap: "1rem",
-            marginBottom: "1rem",
             fontSize: "0.875rem",
           }}
         >
